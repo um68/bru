@@ -1,0 +1,23 @@
+{
+    "homepage": "http://curl.haxx.se",
+    "url": [
+        "http://curl.haxx.se/download/curl-7.54.1.tar.gz",
+        # super ugly fix for iOS arm 32 vs 64 bit problem
+        "file://iOS-curl-7.54.1.zip"
+    ],
+
+    "module": "curl",
+    "version": "7.54.1",
+    "make_command": {
+        "Linux"  : "cd curl-7.54.1 && ./configure --enable-ipv6 --without-libssh2 --without-zlib --without-librtmp --without-libidn --disable-ldap --disable-gopher",
+        "Darwin" : "cd curl-7.54.1 && ./configure --enable-ipv6 --without-libssh2 --without-zlib --without-librtmp --without-libidn --disable-ldap --disable-gopher",
+        "iOS"    : "cd curl-7.54.1 && ./configure --enable-ipv6 --disable-shared --enable-static --without-libssh2 --without-zlib --without-librtmp --without-libidn --disable-ldap --disable-gopher --host=arm-apple-darwin --disable-shared CXX=__BRU_XCODE__/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang CXXFLAGS='-DUSE_BLOCKING_SOCKETS -I../opus/opus/include/ -I ../libogg-1.3.1/include/ -I../openssl-1.0.1m/include    -arch armv7 -arch armv7s -arch arm64  -Werror=partial-availability  -isysroot __BRU_XCODE__/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS__BRU_IOS_VERSION__.sdk -fvisibility=hidden -fembed-bitcode -miphoneos-version-min=8.0' CC=__BRU_XCODE__/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang CPPFLAGS='-DUSE_BLOCKING_SOCKETS -DENABLE_IPV6 -I../opus/opus/include/ -I ../libogg-1.3.1/include/ -I../openssl-1.0.1m/include -I/Library/iPhone/include' CFLAGS='-arch armv7 -arch armv7s -arch arm64 -pipe -Werror=partial-availability -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -fmessage-length=0 -fvisibility=hidden -fembed-bitcode -miphoneos-version-min=8.0 -gdwarf-2 -mthumb  -isysroot __BRU_XCODE__/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS__BRU_IOS_VERSION__.sdk' LIBTOOL=__BRU_XCODE__/Platforms/iPhoneOS.platform/Developer/usr/bin/libtool STRIP=__BRU_XCODE__/Platforms/iPhoneOS.platform/Developer/usr/bin/strip && cp ../iOS-curl-7.54.1/include/curl/curlbuild.h ./include/curl/curlbuild.h",
+        "Windows": ""
+    },
+    "dependencies": {
+        "openssl": "1.0.1m"
+        # not adding libssl2, only needed for sftp support?
+    }
+}
+
+
